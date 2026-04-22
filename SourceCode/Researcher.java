@@ -3,11 +3,17 @@ import java.io.*;
 import java.util.*;
 
 public class Researcher {
+    private int hIndex;
+    private String school;
 
-    /*
-    Default constructor
-    */
-    public Researcher() {
+    private Researcher supervisor;
+    private List<ResearchProject> researchProjects;
+    private List<ResearchPaper> researchPapers;
+    public Researcher(int hIndex, String school) {
+        this.hIndex = hIndex;
+        this.school = school;
+        this.researchProjects = new ArrayList<>();
+        this.researchPapers = new ArrayList<>();
     }
 
 
