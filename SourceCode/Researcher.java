@@ -6,17 +6,13 @@ public class Researcher {
     private int hIndex;
     private String school;
 
-    private Researcher supervisor;
-    private List<ResearchProject> researchProjects;
-    private List<ResearchPaper> researchPapers;
+    
     public Researcher(int hIndex, String school) {
         this.hIndex = hIndex;
         this.school = school;
         this.researchProjects = new ArrayList<>();
         this.researchPapers = new ArrayList<>();
     }
-
-
     public int hIndex;
     public String school;
     public Set<ResearchProject> researchProject;
