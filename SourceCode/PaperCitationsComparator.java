@@ -12,6 +12,6 @@ public class PaperCitationsComparator implements Comparator<ResearchPaper> {
     @Override
     public int compare(ResearchPaper rp1, ResearchPaper rp2)
     {
-        return Integer.compare(rp1.citations, rp2.citations);
+        return Integer.compare(rp1.getCitations(), rp2.getCitations());
     }
 }

@@ -5,11 +5,13 @@ public class ResearchProject {
     private String topic;
     private ResearchStatus status;
     private List<ResearchPaper> publishedPapers;
+    private List<Researcher> projectParticipants;
 
     public ResearchProject(String topic, ResearchStatus status) {
         this.topic = topic;
         this.status = status;
         this.publishedPapers = new ArrayList<>();
+        this.projectParticipants = new ArrayList<>();
     }
 
     public String getTopic() {
@@ -24,6 +26,11 @@ public class ResearchProject {
         return new ArrayList<>(publishedPapers);
     }
 
+    public List<Researcher> getParticipants()
+    {
+        return new ArrayList<>(projectParticipants);
+    }
+
     public void setTopic(String topic) {
         this.topic = topic;
     }
@@ -35,6 +42,13 @@ public class ResearchProject {
     public void addPublishedPaper(ResearchPaper paper) {
         if (paper != null) {
             publishedPapers.add(paper);
+        }
+    }
+
+    public void addParticipant(Researcher researcher)
+    {
+        if (researcher != null) {
+            projectParticipants.add(researcher);
         }
     }
 

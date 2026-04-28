@@ -4,7 +4,6 @@ public class Researcher {
     private int hIndex;
     private String school;
 
-    private Researcher supervisor;
     private List<ResearchProject> researchProjects;
     private List<ResearchPaper> researchPapers;
 
@@ -23,10 +22,6 @@ public class Researcher {
         return school;
     }
 
-    public Researcher getSupervisor() {
-        return supervisor;
-    }
-
     public List<ResearchProject> getResearchProjects() {
         return researchProjects;
     }
@@ -41,10 +36,6 @@ public class Researcher {
 
     public void setSchool(String school) {
         this.school = school;
-    }
-
-    public void setSupervisor(Researcher supervisor) {
-        this.supervisor = supervisor;
     }
 
     public void addResearchProject(ResearchProject project) {
@@ -81,7 +72,6 @@ public class Researcher {
         return "Researcher{" +
                 "hIndex=" + hIndex +
                 ", school='" + school + '\'' +
-                ", supervisor=" + (supervisor != null ? supervisor.getSchool() : "none") +
                 '}';
     }
 }
