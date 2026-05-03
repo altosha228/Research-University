@@ -1,18 +1,21 @@
-
-import java.io.*;
-import java.util.*;
-
-
 public class Mark {
+    private int value;
+    private Lesson lesson;
 
-    /*
-     Default constructor
-    */
-    public Mark() {
+    public Mark(int value, Lesson lesson) {
+        this.value = value;
+        this.lesson = lesson;
     }
 
+    public int getValue() {
+        return value;
+    }
 
-    public int value;
-    public Lesson lesson;
-    public Student student;
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
 }
