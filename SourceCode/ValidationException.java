@@ -1,17 +1,8 @@
 
 import java.io.*;
 import java.util.*;
-
-
 public class ValidationException extends Exception {
-
-    /*
-    Default constructor
-    */
-    public ValidationException() {
+    public ValidationException(String message) {
+        super(message);
     }
-
-
-    public String message;
-
 }

@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -46,7 +45,7 @@ public class ResearchPaper implements IPublishable {
         return DOI;
     }
 
-   
+  
     public void publish() {
         System.out.println("Research paper published: " + name);
     }
@@ -63,6 +62,7 @@ public class ResearchPaper implements IPublishable {
                 '}';
     }
 
+  
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ResearchPaper)) return false;

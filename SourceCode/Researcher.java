@@ -7,16 +7,14 @@ import java.util.List;
 public class Researcher {
     private int hIndex;
     private String school;
-
-    private Researcher supervisor;
-    private List<ResearchProject> researchProjects;
     private List<ResearchPaper> researchPapers;
+    private List<ResearchProject> researchProjects;
 
     public Researcher(int hIndex, String school) {
         this.hIndex = hIndex;
         this.school = school;
-        this.researchProjects = new ArrayList<>();
         this.researchPapers = new ArrayList<>();
+        this.researchProjects = new ArrayList<>();
     }
 
     public int getHIndex() {
@@ -27,28 +25,28 @@ public class Researcher {
         return school;
     }
 
-    public Researcher getSupervisor() {
-        return supervisor;
-    }
-
-    public void setSupervisor(Researcher supervisor) {
-        this.supervisor = supervisor;
+    public List<ResearchPaper> getResearchPapers() {
+        return researchPapers;
     }
 
     public List<ResearchProject> getResearchProjects() {
         return researchProjects;
     }
 
-    public List<ResearchPaper> getResearchPapers() {
-        return researchPapers;
+    public void addResearchPaper(ResearchPaper paper) {
+        researchPapers.add(paper);
     }
 
     public void addResearchProject(ResearchProject project) {
         researchProjects.add(project);
     }
 
-    public void addResearchPaper(ResearchPaper paper) {
-        researchPapers.add(paper);
+    public int calculateTotalCitations() {
+        int total = 0;
+        for (ResearchPaper paper : researchPapers) {
+            total += paper.getCitations();
+        }
+        return total;
     }
 
     public void printPapers(Comparator<ResearchPaper> comparator) {
@@ -58,16 +56,6 @@ public class Researcher {
         for (ResearchPaper paper : sortedPapers) {
             System.out.println(paper);
         }
-    }
-
-    public int calculateTotalCitations() {
-        int total = 0;
-
-        for (ResearchPaper paper : researchPapers) {
-            total += paper.getCitations();
-        }
-
-        return total;
     }
 
     @Override
