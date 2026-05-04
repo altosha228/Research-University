@@ -1,18 +1,16 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.*;
-import java.util.*;
+public class Professor extends Teacher {
 
-
-public class Professor extends Teacher{
-
-    /*
-    Default constructor
-    */
-    public Professor() {
+    public Professor(String name, LocalDate dateEmployed) {
+        super(name, dateEmployed);
     }
 
-
-
-    public Researcher researcher;
-
+    @Override
+    public String toString() {
+        return "Professor{name='" + name + "', dateEmployed=" + dateEmployed +
+               ", courses=" + getCourses().size() + "}";
+    }
 }

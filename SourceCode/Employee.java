@@ -1,18 +1,23 @@
-
-import java.io.*;
-import java.util.*;
 import java.time.LocalDate;
 
 public class Employee extends Person {
+    public LocalDate dateEmployed;
 
-    /**
-     * Default constructor
-     */
-    public Employee() {
+    public Employee(String name, LocalDate dateEmployed) {
+        super(name);
+        this.dateEmployed = dateEmployed;
     }
 
+    public LocalDate getDateEmployed() {
+        return dateEmployed;
+    }
 
-    public LocalDate dateEmployed;
-    public Researcher researchers;
+    public void setDateEmployed(LocalDate dateEmployed) {
+        this.dateEmployed = dateEmployed;
+    }
 
+    @Override
+    public String toString() {
+        return "Employee{name='" + name + "', dateEmployed=" + dateEmployed + "}";
+    }
 }
