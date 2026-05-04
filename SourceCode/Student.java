@@ -36,16 +36,6 @@ public class Student extends Person {
         return marks;
     }
 
-    public void addMark(Mark mark) {
-        if (mark != null) {
-            marks.add(mark);
-        }
-    }
-
-    /**
-     * Returns all marks for a given course.
-     * @throws ValidationException if course is null
-     */
     public List<Mark> getMarksByCourse(Course course) throws ValidationException {
         if (course == null) {
             throw new ValidationException("Course cannot be null");
