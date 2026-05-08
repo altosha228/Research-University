@@ -1,19 +1,25 @@
+package Models;
 import java.io.*;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResearchProject {
+import db.DB;
+
+public class ResearchProject implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private String topic;
     private ResearchStatus status;
     private List<ResearchPaper> publishedPapers;
     private List<Researcher> projectParticipants;
 
-    public ResearchProject(String topic, ResearchStatus status) {
+    public ResearchProject(String topic, ResearchStatus status, Researcher leadResearcher) {
         this.topic = topic;
         this.status = status;
         this.publishedPapers = new ArrayList<>();
         this.projectParticipants = new ArrayList<>();
+        this.projectParticipants.add(leadResearcher);
     }
 
     public String getTopic() {

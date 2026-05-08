@@ -1,10 +1,13 @@
+package Models;
 import java.io.*;
 import java.util.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-public class ResearchPaper implements IPublishable {
+public class ResearchPaper implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private String name;
     private List<String> authors;
     private int pages;

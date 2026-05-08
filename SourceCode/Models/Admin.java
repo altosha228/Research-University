@@ -1,14 +1,12 @@
+package Models;
+
 import java.util.Comparator;
 import java.util.List;
 
-public class Admin {
+public class Admin extends Person{
 
-    private List<Researcher> researchers;
-    private List<Student> students;
-
-    public Admin(List<Researcher> researchers, List<Student> students) {
-        this.researchers = researchers;
-        this.students = students;
+    public Admin(String username, String password) {
+        super(username, password);
     }
 
     /**
@@ -16,7 +14,7 @@ public class Admin {
      * Signature from diagram: printAllPapers(c: Comparator): void
      * Admin fetches papers internally — no list passed as parameter.
      */
-    public void printAllPapers(Comparator<ResearchPaper> c) {
+    public void printAllPapers(List<Researcher> researchers, Comparator<ResearchPaper> c) {
         researchers.stream()
                 .flatMap(r -> r.getResearchPapers().stream())
                 .sorted(c)
@@ -31,7 +29,7 @@ public class Admin {
      * Uses hIndex (not citations) — hIndex is the researcher's academic rank metric.
      * Signature from diagram: getTopResearcherOfSchool(schoolName: String): Researcher
      */
-    public Researcher getTopResearcherOfSchool(String schoolName) {
+    public Researcher getTopResearcherOfSchool(List<Researcher> researchers, String schoolName) {
         return researchers.stream()
                 .filter(r -> schoolName.equals(r.getSchool()))
                 .max(Comparator.comparingInt(Researcher::getHIndex))
@@ -42,7 +40,7 @@ public class Admin {
      * Returns the researcher with the highest hIndex across all researchers.
      * Signature from diagram: getTopResearcherOfYear(): Researcher
      */
-    public Researcher getTopResearcherOfYear() {
+    public Researcher getTopResearcherOfYear(List<Researcher> researchers) {
         return researchers.stream()
                 .max(Comparator.comparingInt(Researcher::getHIndex))
                 .orElse(null);
@@ -53,13 +51,13 @@ public class Admin {
      * Signature from diagram: printMarksReport(studentId: String): void
      * Fixed: no null passed to getMarksByCourse — prints all marks directly.
      */
-    public void printMarksReport(String studentId) {
+    public void printMarksReport(List<Student> students, String studentId) {
         students.stream()
                 .filter(s -> studentId.equals(s.studentId))
                 .findFirst()
                 .ifPresentOrElse(student -> {
                     System.out.println("=== Marks report for student: " + studentId + " ===");
-                    student.marks.forEach(m ->
+                    student.getMarks().forEach(m ->
                             System.out.println("  Lesson: " + m.getLesson().getTopic()
                                     + " | Value: " + m.getValue()));
                 }, () -> System.out.println("Student not found: " + studentId));

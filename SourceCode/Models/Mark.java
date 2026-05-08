@@ -1,4 +1,8 @@
-public class Mark {
+package Models;
+import java.io.Serializable;
+public class Mark implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private int value;
     private Lesson lesson;
 

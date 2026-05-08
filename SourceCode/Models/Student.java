@@ -1,3 +1,4 @@
+package Models;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,8 +10,8 @@ public class Student extends Person {
     private Researcher supervisor;
     private List<Mark> marks;
 
-    public Student(String name, int year, String studentId) {
-        super(name);
+    public Student(String username, String password, int year, String studentId) {
+        super(username, password);
         this.year = year;
         this.studentId = studentId;
         this.marks = new ArrayList<>();
@@ -47,7 +48,7 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Student{name='" + name + "', studentId='" + studentId +
+        return this.getClass().getSimpleName() + "{username='" + this.getUsername() + "', studentId='" + studentId +
                "', year=" + year + "}";
     }
 }

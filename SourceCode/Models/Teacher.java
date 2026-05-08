@@ -1,3 +1,4 @@
+package Models;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,8 +6,8 @@ import java.util.List;
 public class Teacher extends Employee {
     private List<Course> courses;
 
-    public Teacher(String name, LocalDate dateEmployed) {
-        super(name, dateEmployed);
+    public Teacher(String username, String password) {
+        super(username, password);
         this.courses = new ArrayList<>();
     }
 
@@ -26,7 +27,7 @@ public class Teacher extends Employee {
 
     @Override
     public String toString() {
-        return "Teacher{name='" + name + "', dateEmployed=" + dateEmployed +
+        return this.getClass().getSimpleName() + "{username='" + this.getUsername() + "', dateEmployed=" + dateEmployed +
                ", courses=" + courses.size() + "}";
     }
 }
