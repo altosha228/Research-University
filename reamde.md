@@ -8,7 +8,7 @@
 
 ### Чтобы скомпилировать файлы, используйте команду
 ```powershell
-javac -d out -sourcepath SourceCode ./SourceCode/Main.java
+javac -d out -sourcepath SourceCode SourceCode/Models/*.java SourceCode/db/*.java SourceCode/Main.java
 ```
 
 ### Затем запустите программу
