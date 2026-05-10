@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Researcher implements Serializable{
     private static final long serialVersionUID = 1L;
-    
+
     private int hIndex;
     private String school;
     private List<ResearchPaper> researchPapers;
@@ -40,8 +40,18 @@ public class Researcher implements Serializable{
         researchPapers.add(paper);
     }
 
+    public void removeResearchPaper(ResearchPaper paper)
+    {
+        researchPapers.remove(paper);
+    }
+
     public void addResearchProject(ResearchProject project) {
         researchProjects.add(project);
+    }
+
+    public void removeResearchProject(ResearchProject project)
+    {
+        researchProjects.remove(project);
     }
 
     public int calculateTotalCitations() {

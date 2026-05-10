@@ -8,7 +8,7 @@ public class DB implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String FILE_NAME = "database.ser";
     
-    // Поля теперь приватные для защиты данных (инкапсуляция)
+
     private List<Person> persons = new ArrayList<>();
     private List<Course> courses = new ArrayList<>();
     private List<ResearchProject> researchProjects = new ArrayList<>();
@@ -71,7 +71,7 @@ public class DB implements Serializable {
         persons.add(employee);
 
         Course course = new Course("CS101", "Introduction to Computer Science", teacher);
-        ResearchProject project = new ResearchProject("AI Research", ResearchStatus.InProcess, employee.getResearcherProfile());
+        ResearchProject project = new ResearchProject("AI Research", employee.getResearcherProfile());
         courses.add(course);
         researchProjects.add(project);
         save();

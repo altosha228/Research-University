@@ -8,6 +8,7 @@ public class Student extends Person {
     public String studentId;
 
     private Researcher supervisor;
+    private List<Course> courses;
     private List<Mark> marks;
 
     public Student(String username, String password, int year, String studentId) {
@@ -15,10 +16,31 @@ public class Student extends Person {
         this.year = year;
         this.studentId = studentId;
         this.marks = new ArrayList<>();
+        this.courses = new ArrayList<>();
     }
 
-    public void setSupervisor(Researcher supervisor) {
+    public void setSupervisor(Researcher supervisor) throws ValidationException{
+        if (supervisor == null) {
+            supervisor = null;
+            return;
+        }
+        if (supervisor.getHIndex() < 3) {
+            throw new ValidationException("researchers hIndex too low! (< 3)");
+        }
+        if (year < 4) {
+            throw new ValidationException("student must be 4 year");
+        }
         this.supervisor = supervisor;
+    }
+
+    public void addCourse(Course course)
+    {
+        courses.add(course);
+    }
+
+    public void removeCourse(Course course)
+    {
+        courses.remove(course);
     }
 
     public Researcher getSupervisor() {

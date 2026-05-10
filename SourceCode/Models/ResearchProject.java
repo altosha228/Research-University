@@ -14,9 +14,9 @@ public class ResearchProject implements Serializable{
     private List<ResearchPaper> publishedPapers;
     private List<Researcher> projectParticipants;
 
-    public ResearchProject(String topic, ResearchStatus status, Researcher leadResearcher) {
+    public ResearchProject(String topic, Researcher leadResearcher) {
         this.topic = topic;
-        this.status = status;
+        this.status = ResearchStatus.InProcess;
         this.publishedPapers = new ArrayList<>();
         this.projectParticipants = new ArrayList<>();
         this.projectParticipants.add(leadResearcher);
@@ -38,13 +38,15 @@ public class ResearchProject implements Serializable{
         return projectParticipants;
     }
 
-    public void addParticipant(Researcher researcher) throws ValidationException {
-        if (researcher == null) {
-            throw new ValidationException("Only Researcher can join ResearchProject.");
-        }
-
+    public void addParticipant(Researcher researcher) {
         projectParticipants.add(researcher);
         researcher.addResearchProject(this);
+    }
+
+    public void removeParticipant(Researcher researcher)
+    {
+        projectParticipants.remove(researcher);
+        researcher.removeResearchProject(this);
     }
 
     public void addPublishedPaper(ResearchPaper paper) {
