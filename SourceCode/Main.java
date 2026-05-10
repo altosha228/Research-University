@@ -44,7 +44,7 @@ public class Main {
         }
         else if (user instanceof Manager)
         {
-            ManagerMenu menu = new ManagerMenu(db, scanner);
+            ManagerMenu menu = new ManagerMenu(db, scanner, (Manager) user);
             menu.display();
         }
         System.out.println("Спасибо за пользование University System!");
