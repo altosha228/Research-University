@@ -582,3 +582,4 @@ public class ManagerMenu {
         System.out.println("Исследователь успешно исключен с проекта!");
     }
 }
+
