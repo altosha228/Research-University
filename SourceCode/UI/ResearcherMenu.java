@@ -14,14 +14,14 @@ public class ResearcherMenu {
         while (true){
             showMenuCommands();
 
-            System.out.println("Choose command: ");
+            System.out.println("Введите команду: ");
             String input = scanner.nextLine();
 
             switch (input) {
                 case "0":
                     printResearchPapers();
                     break;
-                    case "1":
+                case "1":
                     enrollToResearchProjectDialog();
                     break;
 
@@ -30,28 +30,29 @@ public class ResearcherMenu {
                     break;
 
                 case "q":
+                    System.out.println("Выход из меню исследователя");
                     return;
 
                 default:
-                    System.out.println("Unknown command!");
+                    System.out.println("Неизвестная команда!");
             }
         }
     }
 
     private void showMenuCommands() {
 
-        System.out.println("\n--- Researcher Menu ---");
-        System.out.println("[0] Print research papers");
-        System.out.println("[1] Enroll to research project");
-        System.out.println("[2] Manage research papers");
-        System.out.println("[q] Exit");
+        System.out.println("\n---  Меню исследователя  ---");
+        System.out.println("[0] Показать научные статьи");
+        System.out.println("[1] Записаться на исследовательский проект");
+        System.out.println("[2] Управление научными статьями");
+        System.out.println("[q] Выход");
     }
 
 
     public void printResearchPapers(){
-        System.out.println("Research Papers: ");
+        System.out.println("\n-Научные статьи: ");
         if (researcher.getResearchPapers().isEmpty()) {
-            System.out.println("No papers found.");
+            System.out.println("Статьи не найдены.");
             return;
         }
         for(ResearchPaper paper : researcher.getResearchpapers()){
@@ -60,11 +61,11 @@ public class ResearcherMenu {
     }
 
     public void enrollToResearchProjectDialog() {
-        System.out.println("Enroll to research project...");
+        System.out.println("\n-Запись на исследовательский проект");
     }
 
     public void manageResearchPaperDialog() {
-        System.out.println("Manage research papers...");
+        System.out.println("\n-Управление научными статьями.");
     }    
 
 }
