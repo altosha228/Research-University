@@ -18,7 +18,7 @@ public class ResearcherMenu {
         while (true){
             showMenuCommands();
 
-            System.out.println("Введите команду: ");
+            System.out.print("> ");
             String input = scanner.nextLine();
 
             switch (input) {
