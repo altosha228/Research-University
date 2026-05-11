@@ -1,6 +1,6 @@
 package Models;
 
-public class ResearchEnrollRequest  Request {
+public class ResearchEnrollRequest extends Request {
     private ResearchProject project;
     private Researcher researcher;
 
