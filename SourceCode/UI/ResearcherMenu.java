@@ -1,20 +1,24 @@
 package UI;
 
-import Models.ResearchPaper;
+import java.util.*;
+import Models.*;
+import db.DB;
 
 public class ResearcherMenu {
     private Researcher researcher;
     private Scanner scanner;
-    public ResearcherMenu(Researcher researcher){
+    private DB dbInstance;
+    public ResearcherMenu(Researcher researcher, DB dbInstance, Scanner scanner) {
         this.researcher = researcher;
-        this.scanner = new Scanner(System.in);
+        this.dbInstance = dbInstance;
+        this.scanner = scanner;
     }
 
     public void display(){
         while (true){
             showMenuCommands();
 
-            System.out.println("Введите команду: ");
+            System.out.print("> ");
             String input = scanner.nextLine();
 
             switch (input) {
@@ -55,13 +59,31 @@ public class ResearcherMenu {
             System.out.println("Статьи не найдены.");
             return;
         }
-        for(ResearchPaper paper : researcher.getResearchpapers()){
+        for(ResearchPaper paper : researcher.getResearchPapers()){
             System.out.println(paper);
         }
     }
 
     public void enrollToResearchProjectDialog() {
-        System.out.println("\n-Запись на исследовательский проект");
+       
+        System.out.println("\n--- Запись на исследовательский проект ---");
+        System.out.print("Введите название проекта: ");
+        String projectName = scanner.nextLine();
+
+        for (ResearchProject project : dbInstance.getResearchProjects()) {
+
+            if (project.getTopic().equalsIgnoreCase(projectName)) {
+
+                ResearchEnrollRequest request =
+                        new ResearchEnrollRequest(project, researcher);
+
+                dbInstance.getRequests().add(request);
+
+                System.out.println("Заявка успешно отправлена менеджеру.");
+                return;
+            }
+        }
+        System.out.println("Проект с таким названием не найден.");
     }
 
     public void manageResearchPaperDialog() {
