@@ -47,6 +47,11 @@ public class Main {
             ManagerMenu menu = new ManagerMenu(db, scanner, (Manager) user);
             menu.display();
         }
+        else if (user instanceof Employee)
+        {
+            EmployeeMenu menu = new EmployeeMenu((Employee) user, db, scanner);
+            menu.display();
+        }
         System.out.println("Спасибо за пользование University System!");
         db.save(); // saveing DB state before terminating process.
         scanner.close();

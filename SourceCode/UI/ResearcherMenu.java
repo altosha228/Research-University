@@ -1,13 +1,17 @@
 package UI;
 
-import Models.ResearchPaper;
+import java.util.*;
+import Models.*;
+import db.DB;
 
 public class ResearcherMenu {
     private Researcher researcher;
     private Scanner scanner;
-    public ResearcherMenu(Researcher researcher){
+    private DB dbInstance;
+    public ResearcherMenu(Researcher researcher, DB dbInstance, Scanner scanner) {
         this.researcher = researcher;
-        this.scanner = new Scanner(System.in);
+        this.dbInstance = dbInstance;
+        this.scanner = scanner;
     }
 
     public void display(){
@@ -55,7 +59,7 @@ public class ResearcherMenu {
             System.out.println("Статьи не найдены.");
             return;
         }
-        for(ResearchPaper paper : researcher.getResearchpapers()){
+        for(ResearchPaper paper : researcher.getResearchPapers()){
             System.out.println(paper);
         }
     }
