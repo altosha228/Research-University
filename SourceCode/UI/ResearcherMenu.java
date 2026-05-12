@@ -85,7 +85,6 @@ public class ResearcherMenu {
         String projectName = scanner.nextLine();
 
         for (ResearchProject project : dbInstance.getResearchProjects()) {
-
             if (project.getTopic().equalsIgnoreCase(projectName)) {
 
                 ResearchEnrollRequest request = new ResearchEnrollRequest(project, researcher, person.getUsername(), "Хочу присоединиться к проекту!");
@@ -104,7 +103,35 @@ public class ResearcherMenu {
     }
 
     public void manageResearchPaperDialog() {
-        System.out.println("\n-Управление научными статьями.");
-    }
+        while (true) {
+            System.out.println("\n--- Управление научными статьями ---");
+            System.out.println("[0] Показать мои статьи");
+            System.out.println("[1] Добавить научную статью");
+            System.out.println("[2] Удалить научную статью");
+            System.out.println("[q] Назад");
 
+            System.out.print("> ");
+            String input = scanner.nextLine();
+
+            switch (input) {
+                case "0":
+                    printResearchPapers();
+                    break;
+
+                case "1":
+                    addResearchPaperDialog();
+                    break;
+
+                case "2":
+                    removeResearchPaperDialog();
+                    break;
+
+                case "q":
+                    return;
+
+                default:
+                    System.out.println("Неизвестная команда!");
+            }
+        }
+    }
 }
