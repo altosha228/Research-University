@@ -14,7 +14,7 @@ public class EmployeeMenu {
         this.dbInstance = dbInstance;
         this.scanner = scanner;
         if (employee.getResearcherProfile() != null) {
-                researcherMenu = new ResearcherMenu(employee.getResearcherProfile(), dbInstance, scanner);
+                researcherMenu = new ResearcherMenu(employee.getResearcherProfile(), (Person) employee, dbInstance, scanner);
         }
     }
     public void display() {

@@ -5,11 +5,13 @@ import Models.*;
 import db.DB;
 
 public class ResearcherMenu {
+    private Person person;
     private Researcher researcher;
     private Scanner scanner;
     private DB dbInstance;
-    public ResearcherMenu(Researcher researcher, DB dbInstance, Scanner scanner) {
+    public ResearcherMenu(Researcher researcher, Person person, DB dbInstance, Scanner scanner) {
         this.researcher = researcher;
+        this.person = person;
         this.dbInstance = dbInstance;
         this.scanner = scanner;
     }
@@ -64,9 +66,21 @@ public class ResearcherMenu {
         }
     }
 
+    public void printResearchProjects(){
+        System.out.println("\n-Исследовательские проекты: ");
+        if (dbInstance.getResearchProjects().isEmpty()) {
+            System.out.println("Проекты не найдены.");
+            return;
+        }
+        for(ResearchProject project : dbInstance.getResearchProjects()){
+            System.out.println(project);
+        }
+    }
+
     public void enrollToResearchProjectDialog() {
        
         System.out.println("\n--- Запись на исследовательский проект ---");
+        printResearchProjects();
         System.out.print("Введите название проекта: ");
         String projectName = scanner.nextLine();
 
@@ -74,8 +88,11 @@ public class ResearcherMenu {
 
             if (project.getTopic().equalsIgnoreCase(projectName)) {
 
-                ResearchEnrollRequest request =
-                        new ResearchEnrollRequest(project, researcher);
+                ResearchEnrollRequest request = new ResearchEnrollRequest(project, researcher, person.getUsername(), "Хочу присоединиться к проекту!");
+                if (dbInstance.getRequests().contains(request)) {
+                    System.out.println("Вы уже отправляли заявку на этот проект.");
+                    return;
+                }
 
                 dbInstance.getRequests().add(request);
 
@@ -88,6 +105,6 @@ public class ResearcherMenu {
 
     public void manageResearchPaperDialog() {
         System.out.println("\n-Управление научными статьями.");
-    }    
+    }
 
 }

@@ -4,8 +4,8 @@ public class ResearchEnrollRequest extends Request {
     private ResearchProject project;
     private Researcher researcher;
 
-    public ResearchEnrollRequest(ResearchProject project, Researcher researcher) {
-        super("Заявка на вступление в исследовательский проект");
+    public ResearchEnrollRequest(ResearchProject project, Researcher researcher, String username, String message) {
+        super(String.format("Исследователь %s хочет вступить в проект %s", username, project.getTopic()), message);
         this.project = project;
         this.researcher = researcher;
     }
@@ -21,8 +21,6 @@ public class ResearchEnrollRequest extends Request {
     
     public void apply() {
         project.addParticipant(researcher);
-        researcher.addResearchProject(project);
-
         System.out.println("Исследователь успешно добавлен в проект.");
     }
 

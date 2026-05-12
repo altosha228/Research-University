@@ -44,6 +44,9 @@ public class ManagerMenu {
                 case "5": manageResearchersEnrollmentDialog(); 
                           showMenuCommands();
                           break;
+                case "6": processRequests();
+                          showMenuCommands();
+                          break;
                 default: System.out.printf("Неизвестная команда: %s%n", input.trim()); break;
             }
         }
@@ -59,6 +62,7 @@ public class ManagerMenu {
         System.out.println("[3] - Управление зачислением учителей");
         System.out.println("[4] - Управление зачислением студентов");
         System.out.println("[5] - Управление зачислением исследователей");
+        System.out.println("[6] - Показать все заявки");
         System.out.println("[q] - Выйти");
     }
     private void showCourceMenuCommands()
@@ -580,6 +584,29 @@ public class ManagerMenu {
         }
         manager.removeResearcherFromProject(researcher, project);
         System.out.println("Исследователь успешно исключен с проекта!");
+    }
+
+    public void processRequests()
+    {
+        System.out.println("--- Пришедшие заявки ---");
+        for (Request r : dbInstance.getRequests()) 
+        {
+            if (!r.is_handled) {
+                System.out.println("- " + r.short_desc + "| message: " + r.message + " | Created at: " + r.created_at);
+            }
+            r.is_handled = true;
+            System.out.print("Принять? (y/n): ");
+            String input = sc.nextLine();
+            if (input.equalsIgnoreCase("y")) {
+                r.apply();
+                r.is_applied = true;
+            } else {
+                System.out.println("Причина отказа: ");
+                String reason = sc.nextLine();
+                r.rejection_reason = reason;
+                System.out.println("Заявка отклонена.");
+            }
+        }
     }
 }
 
