@@ -1,5 +1,5 @@
 package UI;
-
+import java.time.LocalDate;
 import java.util.*;
 import Models.*;
 import db.DB;
@@ -101,6 +101,78 @@ public class ResearcherMenu {
         }
         System.out.println("Проект с таким названием не найден.");
     }
+
+    private void addResearchPaperDialog() {
+
+        System.out.println("\n--- Добавление научной статьи ---");
+
+        System.out.print("Введите название статьи: ");
+        String title = scanner.nextLine();
+
+        System.out.print("Введите авторов через запятую: ");
+        String authorsInput = scanner.nextLine();
+
+        List<String> authors =
+                Arrays.asList(authorsInput.split(","));
+
+        System.out.print("Введите количество страниц: ");
+        int pages = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Введите количество цитирований: ");
+        int citations = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Введите DOI статьи: ");
+        String doi = scanner.nextLine();
+
+        ResearchPaper paper = new ResearchPaper(
+                title,
+                authors,
+                pages,
+                citations,
+                LocalDate.now(),
+                doi
+        );
+
+        researcher.addResearchPaper(paper);
+
+        System.out.println("Статья успешно добавлена.");
+    }
+
+    private void removeResearchPaperDialog() {
+
+        System.out.println("\n--- Удаление научной статьи ---");
+
+        if (researcher.getResearchPapers().isEmpty()) {
+            System.out.println("У вас нет статей.");
+            return;
+        }
+
+        for (int i = 0; i < researcher.getResearchPapers().size(); i++) {
+
+            System.out.println(
+                "[" + i + "] " +
+                researcher.getResearchPapers().get(i)
+            );
+        }
+
+        System.out.print("Введите номер статьи: ");
+
+        int index = Integer.parseInt(scanner.nextLine());
+
+        if (index < 0 || index >= researcher.getResearchPapers().size()) {
+
+            System.out.println("Неверный номер.");
+            return;
+        }
+
+        ResearchPaper removedPaper =
+            researcher.getResearchPapers().get(index);
+
+        researcher.removeResearchPaper(removedPaper);
+
+        System.out.println("Статья удалена.");
+    }
+
 
     public void manageResearchPaperDialog() {
         while (true) {
