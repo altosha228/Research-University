@@ -1,4 +1,5 @@
 import db.DB;
+import util.constants;
 import Models.*;
 import UI.*;
 import java.util.*;
@@ -25,13 +26,13 @@ public class Main {
             }
         }
         if (user == null) {
-            System.out.println("Ошибка: Пользователь не найден или пароль неверен.");
+            System.out.println(constants.ANSI_RED + "Ошибка: Пользователь не найден или пароль неверен." + constants.ANSI_RESET);
             return;
         }
 
 
         // 3. - Giving menu according to user Role.
-        System.out.println("Успешная аутентификация! Вы - " + user.getClass().getSimpleName());
+        System.out.println( constants.ANSI_GREEN + "Успешная аутентификация! Вы - " + user.getClass().getSimpleName() + constants.ANSI_RESET);
         if (user instanceof Teacher)
         {
             // TeacherMenu menu = new TeacherMenu()

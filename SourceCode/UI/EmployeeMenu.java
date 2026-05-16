@@ -3,6 +3,7 @@ package UI;
 import java.util.*;
 import Models.*;
 import db.DB;
+import util.constants;
 
 public class EmployeeMenu {
     private Employee employee;
@@ -18,27 +19,29 @@ public class EmployeeMenu {
         }
     }
     public void display() {
-        while (true) {
+        while (true)
+        {
             showCommands();
+            System.out.print("> ");
             String choice = scanner.nextLine();
             if (researcherMenu != null) {
                 if (choice.equals("r")) {
                     researcherMenu.display();
+                    continue;
                 }
             }
             switch (choice) {
                 case "q": return;
                 default:
-                    System.out.println("Неверный выбор. Пожалуйста, попробуйте снова.");
-    
+                    System.out.println(constants.ANSI_RED + "Неизвестная команда!" + constants.ANSI_RESET);
             }
         }
     }
     public void showCommands() {
         System.out.println("\n--- Меню сотрудника ---");
         if (researcherMenu != null) {
-            System.out.println("[r] - Войти в меню исследователя");
+            System.out.println( constants.ANSI_YELLOW + "[r]" + constants.ANSI_RESET + " - Войти в меню исследователя");
         }
-        System.out.println("[q] - Выйти из меню сотрудника");
+        System.out.println( constants.ANSI_YELLOW + "[q]" + constants.ANSI_RESET + " - Выйти из меню сотрудника");
     }
 }

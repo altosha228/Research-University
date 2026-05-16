@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.util.*;
 import Models.*;
 import db.DB;
+import util.constants;
+import util.constants.*;
 
 public class ResearcherMenu {
     private Person person;
@@ -36,11 +38,11 @@ public class ResearcherMenu {
                     break;
 
                 case "q":
-                    System.out.println("Выход из меню исследователя");
+                    System.out.println("Выход из меню исследователя...");
                     return;
 
                 default:
-                    System.out.println("Неизвестная команда!");
+                    System.out.println(constants.ANSI_RED +"Неизвестная команда!" + constants.ANSI_RESET);
             }
         }
     }
@@ -48,10 +50,10 @@ public class ResearcherMenu {
     private void showMenuCommands() {
 
         System.out.println("\n---  Меню исследователя  ---");
-        System.out.println("[0] Показать научные статьи");
-        System.out.println("[1] Записаться на исследовательский проект");
-        System.out.println("[2] Управление научными статьями");
-        System.out.println("[q] Выход");
+        System.out.println( constants.ANSI_YELLOW + "[0]" + constants.ANSI_RESET + " - Показать научные статьи");
+        System.out.println( constants.ANSI_YELLOW + "[1]" + constants.ANSI_RESET + " - Записаться на исследовательский проект");
+        System.out.println( constants.ANSI_YELLOW + "[2]" + constants.ANSI_RESET + " - Управление научными статьями");
+        System.out.println( constants.ANSI_YELLOW + "[q]" + constants.ANSI_RESET + " - Выход");
     }
 
 
@@ -89,17 +91,17 @@ public class ResearcherMenu {
 
                 ResearchEnrollRequest request = new ResearchEnrollRequest(project, researcher, person.getUsername(), "Хочу присоединиться к проекту!");
                 if (dbInstance.getRequests().contains(request)) {
-                    System.out.println("Вы уже отправляли заявку на этот проект.");
+                    System.out.println(constants.ANSI_RED + "Вы уже отправляли заявку на этот проект." + constants.ANSI_RESET);
                     return;
                 }
 
                 dbInstance.getRequests().add(request);
 
-                System.out.println("Заявка успешно отправлена менеджеру.");
+                System.out.println(constants.ANSI_GREEN + "Заявка успешно отправлена менеджеру." + constants.ANSI_RESET);
                 return;
             }
         }
-        System.out.println("Проект с таким названием не найден.");
+        System.out.println(constants.ANSI_RED + "Проект с таким названием не найден." + constants.ANSI_RESET);
     }
 
     private void addResearchPaperDialog() {
@@ -135,7 +137,7 @@ public class ResearcherMenu {
 
         researcher.addResearchPaper(paper);
 
-        System.out.println("Статья успешно добавлена.");
+        System.out.println(constants.ANSI_GREEN + "Статья успешно добавлена." + constants.ANSI_RESET);
     }
 
     private void removeResearchPaperDialog() {
@@ -143,7 +145,7 @@ public class ResearcherMenu {
         System.out.println("\n--- Удаление научной статьи ---");
 
         if (researcher.getResearchPapers().isEmpty()) {
-            System.out.println("У вас нет статей.");
+            System.out.println(constants.ANSI_RED + "У вас нет статей." + constants.ANSI_RESET);
             return;
         }
 
@@ -161,7 +163,7 @@ public class ResearcherMenu {
 
         if (index < 0 || index >= researcher.getResearchPapers().size()) {
 
-            System.out.println("Неверный номер.");
+            System.out.println(constants.ANSI_RED + "Неверный номер." + constants.ANSI_RESET);
             return;
         }
 
@@ -170,17 +172,17 @@ public class ResearcherMenu {
 
         researcher.removeResearchPaper(removedPaper);
 
-        System.out.println("Статья удалена.");
+        System.out.println(constants.ANSI_GREEN + "Статья удалена." + constants.ANSI_RESET);
     }
 
 
     public void manageResearchPaperDialog() {
         while (true) {
             System.out.println("\n--- Управление научными статьями ---");
-            System.out.println("[0] Показать мои статьи");
-            System.out.println("[1] Добавить научную статью");
-            System.out.println("[2] Удалить научную статью");
-            System.out.println("[q] Назад");
+            System.out.println( constants.ANSI_YELLOW + "[0]" + constants.ANSI_RESET + " - Показать мои статьи");
+            System.out.println( constants.ANSI_YELLOW + "[1]" + constants.ANSI_RESET + " - Добавить научную статью");
+            System.out.println( constants.ANSI_YELLOW + "[2]" + constants.ANSI_RESET + " - Удалить научную статью");
+            System.out.println( constants.ANSI_YELLOW + "[q]" + constants.ANSI_RESET + " - Назад");
 
             System.out.print("> ");
             String input = scanner.nextLine();
@@ -202,7 +204,7 @@ public class ResearcherMenu {
                     return;
 
                 default:
-                    System.out.println("Неизвестная команда!");
+                    System.out.println( constants.ANSI_RED + "Неизвестная команда!" + constants.ANSI_RESET);
             }
         }
     }

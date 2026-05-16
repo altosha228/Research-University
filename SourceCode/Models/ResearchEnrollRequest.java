@@ -1,5 +1,8 @@
 package Models;
 
+import util.constants;
+import java.util.*;
+
 public class ResearchEnrollRequest extends Request {
     private ResearchProject project;
     private Researcher researcher;
@@ -21,7 +24,7 @@ public class ResearchEnrollRequest extends Request {
     
     public void apply() {
         project.addParticipant(researcher);
-        System.out.println("Исследователь успешно добавлен в проект.");
+        System.out.println(constants.ANSI_GREEN + "Исследователь успешно добавлен в проект." + constants.ANSI_RESET);
     }
 
     
