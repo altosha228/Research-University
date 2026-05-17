@@ -1,10 +1,14 @@
 package Models;
-
-public class Mark {
+import java.io.Serializable;
+public class Mark implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private int value;
+    private Lesson lesson;
 
-    public Mark(int value) {
+    public Mark(int value, Lesson lesson) {
         this.value = value;
+        this.lesson = lesson;
     }
 
     public int getValue() {
@@ -15,8 +19,7 @@ public class Mark {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
+    public Lesson getLesson() {
+        return lesson;
     }
 }

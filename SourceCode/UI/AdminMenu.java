@@ -5,6 +5,7 @@ import util.constants;
 import Models.*;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class AdminMenu {
@@ -31,15 +32,15 @@ public class AdminMenu {
                     showMenuCommands();
                     break;
                 case "1":
-                    printMarksReportDialog();
-                    showMenuCommands();
-                    break;
-                case "2":
                     printTopResearcherOfSchoolDialog();
                     showMenuCommands();
                     break;
-                case "3":
+                case "2":
                     printTopResearcherOfYear();
+                    showMenuCommands();
+                    break;
+                case "3":
+                    printAllPapers(Comparator.comparing(ResearchPaper::getDate).reversed());
                     showMenuCommands();
                     break;
                 default:
@@ -53,55 +54,62 @@ public class AdminMenu {
         System.out.println("--- Меню администратора ---");
         System.out.println("Команды:");
         System.out.println(constants.ANSI_YELLOW + "[0]" + constants.ANSI_RESET + " - Показать всех пользователей");
-        System.out.println(constants.ANSI_YELLOW + "[1]" + constants.ANSI_RESET + " - Отчёт по оценкам студента");
-        System.out.println(constants.ANSI_YELLOW + "[2]" + constants.ANSI_RESET + " - Лучший исследователь школы");
-        System.out.println(constants.ANSI_YELLOW + "[3]" + constants.ANSI_RESET + " - Лучший исследователь года");
+        System.out.println(constants.ANSI_YELLOW + "[1]" + constants.ANSI_RESET + " - Лучший исследователь школы");
+        System.out.println(constants.ANSI_YELLOW + "[2]" + constants.ANSI_RESET + " - Лучший исследователь года");
+        System.out.println(constants.ANSI_YELLOW + "[3]" + constants.ANSI_RESET + " - Показать все исследования");
         System.out.println(constants.ANSI_YELLOW + "[q]" + constants.ANSI_RESET + " - Выйти");
     }
 
-    public void printAllUsers(Comparator c) {
-        System.out.println("--- Список всех пользователей ---");
-        dbInstance.getPersons().stream()
+    public void printAllPapers(Comparator<ResearchPaper> c) {
+        DB.getInstance().getPersons().stream()
+                .filter(p -> p.getResearcherProfile() != null)
+                .<ResearchPaper>flatMap(p -> p.getResearcherProfile().getResearchPapers().stream())
                 .sorted(c)
-                .forEach(p -> System.out.println("- " + p.getUsername() + " | " + p.getClass().getSimpleName()));
+                .forEach(paper -> System.out.println(
+                        paper.getName() + " | " + paper.getDate() + " | citations: " + paper.getCitations()));
+    }
+
+    public void printAllUsers(Comparator<Person> c) {
+        System.out.println("\n" + "\u001B[33m" + "--- 👤 Список всех пользователей ---" + "\u001B[0m");
+
+        dbInstance.getPersons().stream()
+                // Явно указываем тип объектов в стриме, чтобы методы были видны
+                .filter(Objects::nonNull)
+                .sorted(c)
+                .forEach((Person p) -> {
+                    String role = p.getClass().getSimpleName();
+                    System.out.printf("%-15s | Role: %-10s%n", p.getUsername(), role);
+                });
     }
 
     public void printAllUsers() {
         printAllUsers(Comparator.comparing(Person::getUsername));
     }
 
-    public void printMarksReport(String studentId) {
-        admin.printMarksReport(studentId);
-    }
-
-    private void printMarksReportDialog() {
-        System.out.println("Введите ID студента: ");
-        String studentId = sc.nextLine();
-        printMarksReport(studentId);
-    }
-
     private void printTopResearcherOfSchoolDialog() {
         System.out.println("Введите название школы: ");
         String schoolName = sc.nextLine();
-        Researcher top = admin.getTopResearcherOfSchool(schoolName);
+        Person top = admin.getTopResearcherOfSchool(schoolName, dbInstance.getPersons().stream()
+                .filter(p -> p.getResearcherProfile() != null).toList());
         if (top == null) {
             System.out.println(constants.ANSI_RED + "Исследователь не найден!" + constants.ANSI_RESET);
         } else {
             System.out.println(constants.ANSI_GREEN + "Лучший исследователь школы " + schoolName
                     + ": " + top.getUsername()
-                    + " | hIndex: " + top.getHIndex()
+                    + " | hIndex: " + top.getResearcherProfile().getHIndex()
                     + constants.ANSI_RESET);
         }
     }
 
     private void printTopResearcherOfYear() {
-        Researcher top = admin.getTopResearcherOfYear();
+        Person top = admin.getTopResearcherOfYear(dbInstance.getPersons().stream()
+                .filter(p -> p.getResearcherProfile() != null).toList());
         if (top == null) {
             System.out.println(constants.ANSI_RED + "Исследователь не найден!" + constants.ANSI_RESET);
         } else {
             System.out.println(constants.ANSI_GREEN + "Лучший исследователь года: "
                     + top.getUsername()
-                    + " | citations: " + top.calculateTotalCitations()
+                    + " | citations: " + top.getResearcherProfile().calculateTotalCitations()
                     + constants.ANSI_RESET);
         }
     }

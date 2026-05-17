@@ -1,52 +1,50 @@
 package Models;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course {
+public class Course implements Serializable{
+    private static final long serialVersionUID = 1L;
+
+    private String courseId;
     private String name;
-    private List<Teacher> instructors = new ArrayList<>();
-    private List<Lesson> lessons = new ArrayList<>();
-    private List<Student> students = new ArrayList<>();
 
-    public Course(String name) {
+    // Course knows about its lessons (arrow: Course → Lesson)
+    private List<Lesson> lessons;
+    private List<String> materialFiles;
+
+    // Course knows about its instructors (arrow: Course → Teacher)
+    private List<Person> instructors;
+    private List<Student> students;
+
+    public Course(String courseId, String name, List<Person> instructors, List<Lesson> lessons) {
+        this.courseId = courseId;
         this.name = name;
+        materialFiles = new ArrayList<>();
+        this.students = new ArrayList<>();
+        this.instructors = instructors;
+        this.lessons = lessons;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Course(String courseId, String name, Person instructor) {
+        this.courseId = courseId;
         this.name = name;
-    }
-
-    public List<Teacher> getInstructors() {
-        return instructors;
-    }
-
-    public void addInstructor(Teacher teacher) {
-        instructors.add(teacher);
-    }
-
-    public void removeInstructor(Teacher teacher) {
-        instructors.remove(teacher);
-    }
-
-    public List<Lesson> getLessons() {
-        return lessons;
+        this.instructors = new ArrayList<>();
+        this.lessons = new ArrayList<>();
+        this.students = new ArrayList<>();
+        materialFiles = new ArrayList<>();
+        this.instructors.add(instructor);
     }
 
     public void addLesson(Lesson lesson) {
         lessons.add(lesson);
     }
 
-    public void removeLesson(Lesson lesson) {
-        lessons.remove(lesson);
+    public void addInstructor(Teacher teacher) {
+        instructors.add(teacher);
     }
-
-    public List<Student> getStudents() {
-        return students;
+    public void removeInstructor(Teacher teacher)
+    {
+        instructors.remove(teacher);
     }
 
     public void addStudent(Student student) {
@@ -57,12 +55,28 @@ public class Course {
         students.remove(student);
     }
 
-    public void SetMark(Mark mark, double value) {
-        mark.setValue((int) value);
+    public List<Lesson> getLessons() {
+        return lessons;
     }
 
-    @Override
-    public String toString() {
+    public List<String> getMaterialFiles()
+    {
+        return materialFiles;
+    }
+
+    public List<Person> getInstructors() {
+        return instructors;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public String getName() {
         return name;
+    }
+
+    public String getCourseId() {
+        return courseId;
     }
 }
