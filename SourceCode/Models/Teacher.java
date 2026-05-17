@@ -1,7 +1,15 @@
+package Models;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Teacher extends Employee {
 
     public Teacher(String username, String password, java.time.LocalDate dateEmployed) {
         super(username, password, dateEmployed);
+    public Teacher(String username, String password) {
+        super(username, password);
+        this.courses = new ArrayList<>();
     }
 
     public void addCourseMaterial(String file, Course course) {
@@ -22,5 +30,9 @@ public class Teacher extends Employee {
 
     public void putMark(Lesson lesson, Student student, int value) {
         System.out.println("Студенту " + student.getUsername() + " выставлена оценка " + value);
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "{username='" + this.getUsername() + "', dateEmployed=" + dateEmployed +
+               ", courses=" + courses.size() + "}";
     }
 }

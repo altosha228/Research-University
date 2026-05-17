@@ -1,6 +1,7 @@
-
+package util;
 import java.io.*;
 import java.util.*;
+import Models.*;
 
 public class PaperDateComparator implements Comparator<ResearchPaper> {
 

@@ -1,11 +1,12 @@
+package Models;
 import java.time.LocalDate;
 
 public class Employee extends Person {
     public LocalDate dateEmployed;
 
-    public Employee(String name, LocalDate dateEmployed) {
-        super(name);
-        this.dateEmployed = dateEmployed;
+    public Employee(String username, String password) {
+        super(username, password);
+        this.dateEmployed = LocalDate.now();
     }
 
     public LocalDate getDateEmployed() {
@@ -18,6 +19,6 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return "Employee{name='" + name + "', dateEmployed=" + dateEmployed + "}";
+        return this.getClass().getSimpleName() + "{username='" + this.getUsername() + "', dateEmployed=" + dateEmployed + "}";
     }
 }
