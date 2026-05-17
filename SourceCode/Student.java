@@ -1,63 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Student extends Person {
-    public int year;
-    public String studentId;
+    private int year;
+    private String studentId;
 
-    private Researcher supervisor;
-    private List<Mark> marks;
-
-    public Student(String name, int year, String studentId) {
-        super(name);
+    public Student(String username, String password, int year, String studentId) {
+        super(username, password);
         this.year = year;
         this.studentId = studentId;
-        this.marks = new ArrayList<>();
     }
 
-    public void setSupervisor(Researcher supervisor) {
-        this.supervisor = supervisor;
+    public void addCourse(Course course) {
+        System.out.println("Курс успешно добавлен студенту.");
     }
 
-    public Researcher getSupervisor() {
-        return supervisor;
+    public void removeCourse(Course course) {
+        System.out.println("Курс успешно удален у студента.");
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public List<Mark> getMarks() {
-        return marks;
-    }
-
-    public void addMark(Mark mark) {
-        if (mark != null) {
-            marks.add(mark);
-        }
-    }
-
-    /**
-     * Returns all marks for a given course.
-     * @throws ValidationException if course is null
-     */
-    public List<Mark> getMarksByCourse(Course course) throws ValidationException {
-        if (course == null) {
-            throw new ValidationException("Course cannot be null");
-        }
-        return marks.stream()
-                .filter(m -> m.getLesson() != null && course.getLessons().contains(m.getLesson()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public String toString() {
-        return "Student{name='" + name + "', studentId='" + studentId +
-               "', year=" + year + "}";
-    }
+    public int getYear() { return year; }
+    public void setYear(int year) { this.year = year; }
+    public String getStudentId() { return studentId; }
+    public void setStudentId(String studentId) { this.studentId = studentId; }
 }

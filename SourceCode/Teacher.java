@@ -1,32 +1,26 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Teacher extends Employee {
-    private List<Course> courses;
 
-    public Teacher(String name, LocalDate dateEmployed) {
-        super(name, dateEmployed);
-        this.courses = new ArrayList<>();
+    public Teacher(String username, String password, java.time.LocalDate dateEmployed) {
+        super(username, password, dateEmployed);
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public void addCourseMaterial(String file, Course course) {
+        System.out.println("Материал " + file + " добавлен к курсу.");
     }
 
-    public void addCourse(Course course) {
-        if (course != null && !courses.contains(course)) {
-            courses.add(course);
-        }
+    public void removeCourseMaterial(String file, Course course) {
+        System.out.println("Материал " + file + " удален из курса.");
     }
 
-    public void removeCourse(Course course) {
-        courses.remove(course);
+    public void addInstructor(Course course) {
+        System.out.println("Инструктор привязан к курсу.");
     }
 
-    @Override
-    public String toString() {
-        return "Teacher{name='" + name + "', dateEmployed=" + dateEmployed +
-               ", courses=" + courses.size() + "}";
+    public void removeInstructor(Person instructor) {
+        System.out.println("Инструктор " + instructor.getUsername() + " удален.");
+    }
+
+    public void putMark(Lesson lesson, Student student, int value) {
+        System.out.println("Студенту " + student.getUsername() + " выставлена оценка " + value);
     }
 }
