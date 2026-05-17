@@ -1,21 +1,14 @@
 package Models;
-import java.io.Serializable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lesson implements Serializable{
-    private static final long serialVersionUID = 1L;
-
+public class Lesson {
     private String topic;
     private LocalDate date;
     private LessonType type;
-
-    // One-to-many: Lesson has many Marks
     private List<Mark> marks = new ArrayList<>();
-
-    // NOTE: No Course field here — the arrow on the diagram goes FROM Course TO Lesson,
-    // meaning Course knows about Lesson, not the other way around.
 
     public Lesson(String topic, LocalDate date, LessonType type) {
         this.topic = topic;
@@ -23,23 +16,44 @@ public class Lesson implements Serializable{
         this.type = type;
     }
 
-    public void addMark(Mark mark) {
-        marks.add(mark);
-    }
-
-    public List<Mark> getMarks() {
-        return marks;
-    }
-
     public String getTopic() {
         return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public LessonType getType() {
         return type;
+    }
+
+    public void setType(LessonType type) {
+        this.type = type;
+    }
+
+    public List<Mark> getMarks() {
+        return marks;
+    }
+
+    public void addMark(Mark mark) {
+        marks.add(mark);
+    }
+
+    public void removeMark(Mark mark) {
+        marks.remove(mark);
+    }
+
+    @Override
+    public String toString() {
+        return topic + " | " + date + " | " + type;
     }
 }

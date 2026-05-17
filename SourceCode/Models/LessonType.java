@@ -1,5 +1,6 @@
 package Models;
-public enum LessonType{
+
+public enum LessonType {
     Lecture,
     Practice
 }
